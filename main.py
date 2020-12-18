@@ -86,7 +86,7 @@ def start(bot_token: str):
 if __name__ == "__main__":
     import json
 
-    token = os.getenv("BOT_TOKEN").strip()
+    token = os.getenv("BOT_TOKEN", "").strip()
     if not token:
         with open("secrets.json") as f:
             content = json.load(f)

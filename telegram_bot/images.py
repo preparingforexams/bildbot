@@ -17,9 +17,12 @@ def get_dirty() -> List[str]:
     links = set()
     response = requests.get("https://photos.google.com/share/AF1QipNS94mSZRF81m0SaNwqEe5FvV3aQ0Zm9zbOp-HNg6s5EU4upTuqnrZj2-_VSyLn8Q?key=Qk9VUDlXVHZqRGtWOFo1aUxVXzdReElsU2NuNExR")
     content = response.content.decode("utf-8")
-    for find in re.findall('"(https://lh3.googleusercontent.com/[^"]+)"', content):
-        if 'https://lh3.googleusercontent.com/a/' in find or find == "https://lh3.googleusercontent.com/YhfpzamTTNKpbiVWUZjP8T0URrfTdxD-iQS0iy1Q00vPYgpYP-TvTGpsXlpjNXGcZd9kC_SC_pF4kWbHRwpHXpqXLH5QjEocn6-HpkSiDqOf":
+    for find in re.findall('<img([^>]*)', content):
+        link = re.search('(https://lh3.googleusercontent.com/[^"]+)', find).group()
+        link = re.sub(r"=w\d+-h\d+(:?-no)?", "", link)
+        link = re.sub(r"=s\d+(:?-no)?", "", link)
+        if 'https://lh3.googleusercontent.com/a/' in link or ('width="32"' in find[0] and 'height="32"' in find[0]) or link == "https://lh3.googleusercontent.com/YhfpzamTTNKpbiVWUZjP8T0URrfTdxD-iQS0iy1Q00vPYgpYP-TvTGpsXlpjNXGcZd9kC_SC_pF4kWbHRwpHXpqXLH5QjEocn6-HpkSiDqOf":
             continue
-        links.add(find)
+        links.add(link)
 
     return list(links)

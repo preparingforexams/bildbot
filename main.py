@@ -25,6 +25,7 @@ def start(bot_token: str):
     logger.debug("Register command handlers")
     # CommandHandler
     dispatcher.add_handler(CommandHandler("users", bot.show_users))
+    dispatcher.add_handler(CommandHandler("bild", bot.bild))
 
     # chat_admin
     dispatcher.add_handler(CommandHandler("delete_chat", bot.delete_chat))

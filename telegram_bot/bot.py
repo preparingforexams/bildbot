@@ -11,6 +11,7 @@ from telegram import ParseMode, TelegramError, Update, Message, ChatPermissions
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, Updater
 
+from . import images
 from .chat import Chat, User
 from .decorators import Command
 from .logger import create_logger
@@ -255,6 +256,8 @@ class Bot:
     def handle_unknown_command(self, update: Update, context: CallbackContext):
         user: User = context.user_data["user"]
         chat: Chat = context.chat_data["chat"]
+        if "start" in [x for x in context.args]:
+            return
 
         reason = "This is not a valid command fuckwit."
         self.mute_user(chat_id=chat.id, user=user, until_date=timedelta(minutes=15), reason=reason)
@@ -299,6 +302,12 @@ class Bot:
                     message = f"{user.name} couldn't be kicked from chat"
                     self.logger.warning(message)
                     update.effective_message.reply_text(message)
+
+    @Command()
+    def bild(self, update: Update, context: CallbackContext):
+        chat: Chat = context.chat_data["chat"]
+
+        self.updater.bot.send_photo(chat.id, images.get_random_image())
 
 
 def _split_messages(lines):

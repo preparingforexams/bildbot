@@ -90,17 +90,10 @@ if __name__ == "__main__":
     with open("secrets.json") as f:
         content = json.load(f)
         token = content['token']
-        try:
-            sentry_dsn = content['sentry_dsn']
-        except KeyError:
-            sentry_dsn = None
-
-    sentry_sdk.init(sentry_dsn)
 
     # noinspection PyBroadException
     try:
         start(token)
     except Exception as e:
-        sentry_sdk.capture_exception()
         create_logger("__main__").error(e)
         sys.exit(1)

@@ -4,19 +4,6 @@ metadata:
   name: telegram-bots
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: slashbildbot-state-pvc
-  namespace: telegram-bots
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: standard
----
-apiVersion: v1
 kind: Secret
 metadata:
   name: slashbildbot-secrets
@@ -39,7 +26,6 @@ spec:
     metadata:
       labels:
         app: slashbildbot
-        dockertag: {{DOCKER_TAG}}
     spec:
       containers:
         - name: slashbildbot
@@ -48,11 +34,3 @@ spec:
           envFrom:
             - secretRef:
                 name: slashbildbot-secrets
-          volumeMounts:
-            - mountPath: "/data"
-              name: slashbildbot-state-volume
-      volumes:
-        - name: slashbildbot-state-volume
-          persistentVolumeClaim:
-            claimName: slashbildbot-state-pvc
-

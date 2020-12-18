@@ -30,9 +30,3 @@ jobs:
         with:
           kubeconfig: ${{ secrets.K8SCONF }}
           args: apply -f .kubernetes/manifest.yaml
-      - uses: danielr1996/kubectl-action@1.0.0
-        name: apply config
-        with:
-          kubeconfig: ${{ secrets.K8SCONF }}
-          args: delete -n telegram-bots rs -l "'app in (slashbildbot), dockertag notin (${{steps.vars.outputs.tag}})'"
-

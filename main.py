@@ -2,7 +2,6 @@ import os
 import sys
 import threading
 
-import sentry_sdk
 from telegram import TelegramError
 from telegram.ext import CommandHandler, Updater, MessageHandler, Filters
 
@@ -87,9 +86,11 @@ def start(bot_token: str):
 if __name__ == "__main__":
     import json
 
-    with open("secrets.json") as f:
-        content = json.load(f)
-        token = content['token']
+    token = os.getenv("BOT_TOKEN").strip()
+    if not token:
+        with open("secrets.json") as f:
+            content = json.load(f)
+            token = content['token']
 
     # noinspection PyBroadException
     try:

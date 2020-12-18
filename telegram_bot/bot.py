@@ -302,7 +302,7 @@ class Bot:
     def bild(self, update: Update, context: CallbackContext):
         chat: Chat = context.chat_data["chat"]
 
-        self.updater.bot.send_photo(chat.id, images.get_random_image())
+        self.updater.bot.send_photo(chat.id, images.get_random_image(), disable_notification=True)
 
 
 def _split_messages(lines):

@@ -5,7 +5,10 @@ import requests
 
 
 def get_random_image() -> str:
-    return random.choice(get_dirty())
+    choice = random.choice(get_dirty())
+    print(choice)
+
+    return choice
 
 
 def get_dirty() -> List[str]:

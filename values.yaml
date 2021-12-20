@@ -1,0 +1,17 @@
+namespace: telegram-bots
+
+deployment:
+  name: bildbot
+  image: ghcr.io/preparingforexams/bildbot:__TAG__
+  imagePullPolicy: IfNotPresent
+  revisionHistoryLimit: 1
+  replicas: 1
+  labels:
+    app: bildbot
+  requests:
+    cpu: 50m
+    memory: 50Mi
+
+secret:
+  name: bildbot-telegram-token
+  token: __TELEGRAM_TOKEN__

@@ -48,3 +48,5 @@ jobs:
         with:
           exec: helm upgrade bildbot . --install --namespace=telegram-bots --atomic
           kubeconfig: ${{ secrets.KUBECONFIG_RAW }}
+      - if: always()
+        run: ls -la

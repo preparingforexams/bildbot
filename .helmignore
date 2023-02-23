@@ -22,6 +22,8 @@
 *.tmproj
 .vscode/
 
+node_modules/
+
 telegram_bot/
 venv/
 .github/

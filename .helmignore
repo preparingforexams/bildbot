@@ -24,6 +24,9 @@
 
 node_modules/
 
+helm-cache-*
+docker-kube-config-*
+
 telegram_bot/
 venv/
 .github/

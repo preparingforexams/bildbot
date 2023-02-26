@@ -44,7 +44,12 @@ jobs:
       - run: sed -i -e "s/__TAG__/${GITHUB_SHA}/g" values.yaml
       - run: ls -l
       - name: install helm chart
-        uses: WyriHaximus/github-action-helm3@v3
+        uses: OpenAlcoholics/github-action-helm@develop
         with:
-          exec: helm upgrade bildbot . --install --namespace=telegram-bots --atomic
+          subcommand: upgrade
+          ref: .
+          release_name: bildbot
+          namespace: telegram-bots
+          atomic: true
           kubeconfig: ${{ secrets.KUBECONFIG_RAW }}
+

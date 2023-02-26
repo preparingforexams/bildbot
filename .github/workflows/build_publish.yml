@@ -51,5 +51,6 @@ jobs:
           release_name: bildbot
           namespace: telegram-bots
           atomic: true
+          install: true
           kubeconfig: ${{ secrets.KUBECONFIG_RAW }}
 

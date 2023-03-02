@@ -44,7 +44,7 @@ jobs:
       - run: sed -i -e "s/__TAG__/${GITHUB_SHA}/g" values.yaml
       - run: ls -la
       - name: install helm chart
-        uses: OpenAlcoholics/github-action-helm@develop
+        uses: OpenAlcoholics/github-action-helm@v0.1.0
         with:
           subcommand: upgrade
           ref: .
